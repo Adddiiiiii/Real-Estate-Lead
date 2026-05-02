@@ -41,7 +41,7 @@ const AGENCY = {
   rating: 4.8,
   reviews: 1400,
   rank: 'Top 3 Real Estate Agent in Thane',
-  phoneDisplay: '+91 98765 43210',
+  phoneDisplay: '+91 91372 11351',
   phoneTel: '+919137211351',
   address:
     'Mayuresh Apartment, Ram Mandir Road, Ghodbunder Road, Kasarvadavali, Thane West 400615 (Opp. HyperCity)',
