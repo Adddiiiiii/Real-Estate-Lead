@@ -121,7 +121,7 @@ export default function App() {
     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const submitLead = (e: React.FormEvent) => {
+  const submitLead = async (e: React.FormEvent) => {
     e.preventDefault()
     const nameOk = lead.name.trim().length >= 2
     const phoneOk = lead.phone.replace(/\D/g, '').length >= 10
@@ -133,7 +133,25 @@ export default function App() {
     }
     setLoading(true)
 
-    const msg = `Lead Request — ${AGENCY.name}
+    try{
+    await fetch("https://script.google.com/macros/s/AKfycbw57Qzneun2Nf7yEFFsbOhlIpzrFDNPN_mLK3t_b5QpwmeGGbQ0K9750F4jDWw4vKX5/exec", {
+        method: "POST",
+        body: JSON.stringify({
+        name: lead.name,
+        phone: lead.phone,
+        email: lead.email,
+        propertyType: lead.propertyType,
+        intent: lead.intent,
+        location: lead.location,
+        message: lead.message,
+      }),
+    })
+   console.log("Saved to sheet")
+    }catch(error){
+      console.log("Error saving",error)
+    };
+
+    const msg = `Lead Request - ${AGENCY.name}
     Name: ${lead.name}
     Phone: ${lead.phone}
     ${lead.email ? `Email: ${lead.email}` : ''}
@@ -151,14 +169,11 @@ export default function App() {
       name: '',
       phone: '',
       email: '',
-      propertyType: 'Apartment',
-      intent: 'Buy',
+      propertyType: '',
+      intent: '',
       location: '',
       message: ''
     })
-    if (!url) {
-      alert("Something went wrong. Please call us directly.");
-    }
     setLoading(false)
   }
 
